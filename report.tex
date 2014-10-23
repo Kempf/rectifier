@@ -28,6 +28,8 @@ Most forms of power are supplied in the form of AC current.As most electronics d
 
 There are several types of rectifier circuits that can be used to convert from AC to DC current but only the full wave rectifier or bridge rectifier will be discussed in this report. The bridge rectifier circuit---as per Figure~\ref{fig:cap}---is designed such that current during both the negative and positive cycles pass through the load site in the same direction, which means that the voltage across the load site is always of the same sign. Although this configuration of diodes succeeds in inverting the voltage in the negative cycle, the voltage is not the constant DC voltage that is desired. In order to reduce this voltage variation a capacitor is added in series with the load site. The capacitor charges when the voltage from the source is increasing and discharges when the voltage from the source is decreasing, thus smoothing the output waveform. 
 
+The analysis of the full-wave rectifier was conducted using multiple techniques, which are detailed in the body of the report. In the theoretical analysis several equations were used to approximate the output and ripple voltages of the voltage across the load resistor in the circuit. These same values were then calculated using a PSPICE simulation. The simulation was also used to observe the effect of various diode malfunctions on the function of the rectifier circuit. In the implementation section, the method used to construct the physical rectifier is described and how the output and ripple voltages of the load resistor were measured. Photos of the soldering and functioning circuit are also included. The results of each of the analyses are then compared and discussed in the discussion section.
+
 \section{Theoretical Analysis}
 \label{sec:the}
 Two versions of a full-wave rectifier circuit were analysed, with and without a smoothing capacitor, schematics shown in Figures \ref{fig:cap} and \ref {fig:nocap} respectively.
@@ -76,14 +78,107 @@ Note that in the above case, in the absence of the smoothing capacitor, $V_r=V_{
   \begin{split}
     V_{DC}&=V_{out}-\frac{1}{2}V_r\\
     &=17.4-\frac{0.773}{2}\\
-    &=17.01
+    &=17.01\mathrm{V}
   \end{split}
   \label{eq:capdc}
 \end{align}
+
 \section{Simulation}
 \label{sec:sim}
+A series of PSPICE simulations were conducted to verify the validity of the theoretical analysis. The results are recorded in Table~\ref{tab:sim}, and the input against output waveform graph of a full-bridge rectifier (Figure~\ref{fig:cap}) is shown in Figure~\ref{fig:norm}.
+\begin{table}[h!]
+\centering
+\caption{Simulation results.}  
+\begin{tabular}{|l|r|r|}
+\hline
+&$V_{out}$&$V_R$\\ \hline
+Single resistor&$17.339\mathrm{V}$&$0.613\mathrm{V}$\\ \hline
+Double resistors&$17.332\mathrm{V}$&$1.229\mathrm{V}$\\ \hline
+\end{tabular}
+\label{tab:sim}
+\end{table}
+
+When a second resistor of equivalent resistance was connected in parallel with the load resistor, the result in the PSPICE simulation was a doubling in the magnitude of the ripple voltage. This is to be expected as the result of placing two equivalent resistors in parallel is that the net resistance is halved. (Equation~\ref{eq:res}). Consequently the $RC$ constant halved---that is the capacitor was able to discharge faster---and as a result the amount that the voltage ripple between peaks was doubled (Figure~\ref{fig:res}). This behaviour is described in Equation~\ref{eq:vrpp}, which shows that peak to peak ripple voltage ($V_r$) is inversely proportional to $RC$.
+\begin{align}
+\begin{split}
+ R_{total}&=\frac{1}{\frac{1}{R}+\frac{1}{R}}\\
+&=\frac{R}{2}
+\end{split}
+\label{eq:res}
+\end{align}
+\begin{align}
+\begin{split}
+V_{r}=\frac{V_{DC}}{2f RC}
+\end{split}
+\label{eq:vrpp}
+\end{align}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\includegraphics[width=\textwidth]{out_norm}
+\caption{Normal rectifier with a capacitor.}
+\label{fig:norm}
+\end{subfigure}
+\qquad
+\begin{subfigure}[b]{0.45\textwidth}
+\includegraphics[width=\textwidth]{out_res}
+\caption{Rectifier with two parallel load resistors.}
+\label{fig:res}
+\end{subfigure}
+\caption{Simulation results.}
+\label{fig:sim}
+\end{figure}
+
+PSPICE was also used to predict the outcome in the case of a faulty diode. To do this two scenarios were simulated, one in which the diode acts as an open circuit and one in which the diode acts as a short circuit. For these simulations, diode 4 (D4) was varied (Figure~\ref{fig:cap}).
+
+In the short circuit scenario, the rectifier functioned as a half wave rectifier that only permitted the positive half-cycle to flow across the load resistor (Figure~\ref{fig:pos}). This is because during the negative cycle, a short circuit was created between the negative and positive outputs of the source. That is, as D4 no longer blocked current, current from the negative terminal could flow through D3 and back to the source without passing over the load resistor. During the positive half cycle there is not short circuit as D3 acts as an open circuit with respect to the path of current.
+
+In the open circuit scenario, the circuit functioned as a half wave rectifier that permitted only the negative cycle (Figure~\ref{fig:neg}). This is because during the positive cycle an open circuit between ground and the negative source terminal is produced, preventing current from flowing across the load resistor. However, when functioning normally D4 acts as an open circuit with the respect to the path of current during the negative half-cycle and therefore the negative half-cycle is unaffected.
+
+If the same simulations are applied to the other diodes, a faulty D1 has the same effect as D4. D3 and D2 however block the positive cycle when acting as an open circuit and the negative cycle when acting as a short circuit.
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\includegraphics[width=\textwidth]{out_pos}
+\caption{Positive half-cycle only.}
+\label{fig:pos}
+\end{subfigure}
+\qquad
+\begin{subfigure}[b]{0.45\textwidth}
+\includegraphics[width=\textwidth]{out_neg}
+\caption{Negative half-cycle only.}
+\label{fig:neg}
+\end{subfigure}
+\caption{Fault simulation results.}
+\label{fig:fault}
+\end{figure}
+
 \section{Implementation}
 \label{sec:imp}
+The rectifier circuit was first built according to Figure~\ref{fig:nocap}, then modified with a smoothing capacitor (Figure~\ref{fig:cap}), and finally fitted with a voltage regulator, as shown in Figure~\ref{fig:reg}. The completed circuit, soldered on a PCB can be seen in Figure~\ref{fig:pcb}.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{rekt_reg}
+\caption{Rectifier with a voltage regulator.}
+\label{fig:reg}
+\end{figure}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\includegraphics[width=\textwidth]{pcb_front}
+\caption{Front.}
+\label{fig:front}
+\end{subfigure}
+\qquad
+\begin{subfigure}[b]{0.41\textwidth}
+\includegraphics[width=\textwidth]{pcb_back}
+\caption{Back.}
+\label{fig:back}
+\end{subfigure}
+\caption{Finished circuit.}
+\label{fig:pcb}
+\end{figure}
+
 \section{Discussion}
 \label{sec:dis}
 \section{Conclusion}
