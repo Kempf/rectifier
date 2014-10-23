@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 
-\usepackage{graphicx,amsmath,textcomp,caption,subcaption,cite,multirow}
+\usepackage{graphicx,amsmath,textcomp,caption,subcaption}
 \usepackage[round]{natbib}
 \usepackage[margin=2cm]{geometry}
 %\usepackage[subtle]{savetrees}
@@ -24,11 +24,11 @@ A diode-bridge full wave power rectifier circuit was designed and constructed. T
 
 \section{Introduction}
 \label{sec:int}
-Most forms of power are supplied in the form of AC current.As most electronics devices and systems require DC current it is necessary that there be a means to convert AC to DC. Power rectifier circuits allow this and function using diodes, which ideally only allow the passage of current in one direction - typically the positive direction.
+Most forms of power are supplied in the form of AC current. As most electronics devices and systems require DC current it is necessary that there be a means to convert AC to DC. Power rectifier circuits allow this and function using diodes, which ideally only allow the passage of current in one direction---typically the positive direction.
 
 There are several types of rectifier circuits that can be used to convert from AC to DC current but only the full wave rectifier or bridge rectifier will be discussed in this report. The bridge rectifier circuit---as per Figure~\ref{fig:cap}---is designed such that current during both the negative and positive cycles pass through the load site in the same direction, which means that the voltage across the load site is always of the same sign. Although this configuration of diodes succeeds in inverting the voltage in the negative cycle, the voltage is not the constant DC voltage that is desired. In order to reduce this voltage variation a capacitor is added in series with the load site. The capacitor charges when the voltage from the source is increasing and discharges when the voltage from the source is decreasing, thus smoothing the output waveform. 
 
-The analysis of the full-wave rectifier was conducted using multiple techniques, which are detailed in the body of the report. In the theoretical analysis several equations were used to approximate the output and ripple voltages of the voltage across the load resistor in the circuit. These same values were then calculated using a PSPICE simulation. The simulation was also used to observe the effect of various diode malfunctions on the function of the rectifier circuit. In the implementation section, the method used to construct the physical rectifier is described and how the output and ripple voltages of the load resistor were measured. Photos of the soldering and functioning circuit are also included. The results of each of the analyses are then compared and discussed in the discussion section.
+The analysis of the full-wave rectifier was conducted using multiple techniques, which are detailed in the body of the report. In the theoretical analysis several equations were used to approximate the output and ripple voltages of the voltage across the load resistor in the circuit. These same values were then calculated using a PSPICE simulation. The simulation was also used to observe the effect of various diode malfunctions on the function of the rectifier circuit. In the implementation section, the method used to construct the physical rectifier is described and how the output and ripple voltages of the load resistor were measured. Photos of the soldered and functioning circuit are also included. The results of each of the analyses are then compared and discussed in the discussion section.
 
 \section{Theoretical Analysis}
 \label{sec:the}
@@ -197,5 +197,5 @@ with regulator&$18.8$&\multicolumn{2}{|c|}{12.1}&0.02&$2197$&$100$\\ \hline
 \label{sec:dis}
 \section{Conclusion}
 \label{sec:con}
-\bibliography{electronics.bib}
+\bibliography{electronics}
 \end{document}
