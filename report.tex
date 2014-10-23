@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 
-\usepackage{graphicx,amsmath,textcomp,caption,subcaption,cite}
+\usepackage{graphicx,amsmath,textcomp,caption,subcaption,cite,multirow}
 \usepackage[round]{natbib}
 \usepackage[margin=2cm]{geometry}
 %\usepackage[subtle]{savetrees}
@@ -155,7 +155,7 @@ If the same simulations are applied to the other diodes, a faulty D1 has the sam
 
 \section{Implementation}
 \label{sec:imp}
-The rectifier circuit was first built according to Figure~\ref{fig:nocap}, then modified with a smoothing capacitor (Figure~\ref{fig:cap}), and finally fitted with a voltage regulator, as shown in Figure~\ref{fig:reg}. The completed circuit, soldered on a PCB can be seen in Figure~\ref{fig:pcb}.
+The rectifier circuit was first built according to Figure~\ref{fig:nocap}, then modified with a smoothing capacitor (Figure~\ref{fig:cap}), and finally fitted with a voltage regulator, as shown in Figure~\ref{fig:reg}. The completed circuit, with the components labeled, soldered on a PCB can be seen in Figure~\ref{fig:pcb}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.6\textwidth]{rekt_reg}
@@ -178,6 +178,20 @@ The rectifier circuit was first built according to Figure~\ref{fig:nocap}, then 
 \caption{Finished circuit.}
 \label{fig:pcb}
 \end{figure}
+
+The measurements taken from the three versions of the circuit are presented in Table~\ref{tab:imp}.
+\begin{table}[h!]
+\centering
+\caption{Measurements.}  
+\begin{tabular}{|l|r|r|r|r|r|r|}
+\hline
+&$V_{in}(\mathrm{V})$&$V_{out}(\mathrm{V})$&$V_{DC}(\mathrm{V})$&$V_{r}(\mathrm{V})$&$R_{L}(\mathrm{\Omega})$&$f_{out}(\mathrm{Hz})$\\ \hline
+no capacitor&$18.8$&$17.4$&--&17.4&$2197$&$100$\\ \hline
+with capacitor&$18.8$&$17.4$&16.9&0.7&$2197$&$100$\\ \hline
+with regulator&$18.8$&\multicolumn{2}{|c|}{12.1}&0.02&$2197$&$100$\\ \hline
+\end{tabular}
+\label{tab:imp}
+\end{table}
 
 \section{Discussion}
 \label{sec:dis}
