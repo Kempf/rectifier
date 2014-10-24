@@ -85,7 +85,7 @@ Note that in the above case, in the absence of the smoothing capacitor, $V_r=V_{
 
 \section{Simulation}
 \label{sec:sim}
-A series of PSPICE simulations were conducted to verify the validity of the theoretical analysis. The results are recorded in Table~\ref{tab:sim}, and the input against output waveform graph of a full-bridge rectifier (Figure~\ref{fig:cap}) is shown in Figure~\ref{fig:norm}.
+A series of PSPICE simulations were conducted to test the validity of the theoretical analysis. The results are recorded in Table~\ref{tab:sim}, and the input against output waveform graph of a full-bridge rectifier (Figure~\ref{fig:cap}) is shown in Figure~\ref{fig:norm}.
 \begin{table}[h!]
 \centering
 \caption{Simulation results.}  
@@ -98,7 +98,7 @@ Double resistors&$17.332\mathrm{V}$&$1.229\mathrm{V}$\\ \hline
 \label{tab:sim}
 \end{table}
 
-When a second resistor of equivalent resistance was connected in parallel with the load resistor, the result in the PSPICE simulation was a doubling in the magnitude of the ripple voltage. This is to be expected as the result of placing two equivalent resistors in parallel is that the net resistance is halved. (Equation~\ref{eq:res}). Consequently the $RC$ constant halved---that is the capacitor was able to discharge faster---and as a result the amount that the voltage ripple between peaks was doubled (Figure~\ref{fig:res}). This behaviour is described in Equation~\ref{eq:vrpp}, which shows that peak to peak ripple voltage ($V_r$) is inversely proportional to $RC$.
+When a second resistor of equivalent resistance was connected in parallel with the load resistor, the result in the PSPICE simulation was a doubling in the magnitude of the ripple voltage. This is to be expected as the result of placing two equivalent resistors in parallel is that the net resistance is halved. (Equation~\ref{eq:res}). Consequently the $RC$ constant halved---that is the capacitor was able to discharge faster---and as a result the voltage ripple was doubled (Figure~\ref{fig:res}). This behaviour is described in Equation~\ref{eq:vrpp}, which shows that peak to peak ripple voltage ($V_r$) is inversely proportional to $RC$.
 \begin{align}
 \begin{split}
  R_{total}&=\frac{1}{\frac{1}{R}+\frac{1}{R}}\\
