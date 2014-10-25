@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 
-\usepackage{graphicx,amsmath,textcomp,caption,subcaption}
+\usepackage{graphicx,amsmath,textcomp,caption,subcaption,url}
 \usepackage[round]{natbib}
 \usepackage[margin=2cm]{geometry}
 %\usepackage[subtle]{savetrees}
@@ -92,7 +92,7 @@ A series of PSPICE simulations were conducted to verify the validity of the theo
 \begin{tabular}{|l|r|r|}
 \hline
 &$V_{out}$&$V_R$\\ \hline
-Single resistor&$17.339\mathrm{V}$&$0.613\mathrm{V}$\\ \hline
+Single resistor&$17.34\pm0.02\mathrm{V}$&$0.632\pm0.011\mathrm{V}$\\ \hline
 Double resistors&$17.332\mathrm{V}$&$1.229\mathrm{V}$\\ \hline
 \end{tabular}
 \label{tab:sim}
@@ -195,7 +195,36 @@ with regulator&$18.8$&\multicolumn{2}{|c|}{12.1}&0.02&$2197$&$100$\\ \hline
 
 \section{Discussion}
 \label{sec:dis}
+As per Table~\ref{tab:dis}, there were significant differences between simulated, measured and predicted ripple values. There is a difference of approximately $0.07\mathrm{V}$ between the measured ripple voltage and both the simulated and predicted values. What is notable is that there is roughly a $0.14\mathrm{V}$ difference between the simulated value and the predicted value that was calculated using the approximation formulas (Equation~\ref{eq:vrpp}). Despite being an approximation, the predicted value was expected to be much closer to the simulated value. In the approximation formula the assumption is made that once the AC voltage reaches its maximum, the signal is switched off and the capacitor is left to discharge until the AC voltage reaches its next maximum.
+\begin{table}[h!]
+\centering
+\caption{Comparsion of results.}  
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
+\hline
+&\multicolumn{3}{|c|}{$V_{out}(\mathrm{V})$}&\multicolumn{3}{|c|}{$V_{DC}(\mathrm{V})$}&\multicolumn{3}{|c|}{$V_{r}(\mathrm{V})$}\\ \hline
+&pred.&sim.&meas.&pred.&sim.&meas.&pred.&sim.&meas.\\ \hline
+no capacitor&$17.4$&$17.34$&$17.4$&--&--&--&$17.4$&$17.32$&17.4\\ \hline
+with capacitor&$17.4$&$17.32$&$17.4$&17.01&$17.02$&16.92&$0.77$&$0.63$&0.7\\ \hline
+with regulator&$12.0$&--&$12.1$&12.0&--&12.1&$0$&--&0.02\\ \hline
+\end{tabular}
+\label{tab:dis}
+\end{table}
+ 
+This however, is not the case as the AC voltage decreases as a sinusoidal function---as AC voltage is sinusoidal---to zero. Therefore, the capacitor equation (put in capacitor equation maybe or refer to here) for a natural response cannot be used directly to calculate the drop in voltage of the capacitor. Instead it must be viewed as a series of step responses each with a new DC source voltage after time dt. The source voltage at time t is given by the magnitude of the voltage due to the AC wave at that time. This can be thought of as the voltage ‘available’ for discharge is not the voltage of the capacitor with respect to ground, but delta V between the voltage of the capacitor and the voltage due to the AC source. Consequently the ripple voltage magnitude will be smaller than the predicted value as delta V between capacitor and source is never as large as initial voltage of the capacitor used in the approximation equation.
+ 
+The $0.07\mathrm{V}$ difference between the simulated result and the measured result is also significant. However, there were several error sources within the experiment that may have contributed to this disparity. Firstly, the capacitance of electrolytic capacitors can have uncertainties of 20\% \citetext{Electronics Tutorials}. The magnitude of this uncertainty comes from a number of different sources such as temperature and variation in frequency of the input signal. Therefore, for a $100\mathrm{\mu F}$ capacitor, $\sigma_C=20\mathrm{\mu F}$. There is also the uncertainty in the resistance of the resistor which according to the colour bands on the resistor is 1\%, thus  $\sigma_R=22\mathrm{\Omega}$. These errors were then propagated for the capacitor voltage natural response formula (Equation~\ref{eq:nat}) using the following error propagation formulas \citetext{Rochester Institute of Technology}.
+\begin{align}
+V(t)=V_0e^{-\frac{t}{RC}}
+\label{eq:nat}
+\end{align}
+
+The propagated uncertainty was found to be $0.156\mathrm{V}$. The difference between the measured and mean simulated ripple value was $0.068\mathrm{V}$, with an uncertainty of $0.0156\mathrm{V}$---the uncertainty in the simulated values was small and consequently did not change the error significantly. Therefore, the measured ripple voltage was within $0.44$ of the mean simulated ripple voltage. Thus the measured value agreed with the simulated value to a considerable degree considering the high uncertainty.
+ 
+Other sources of error such as fluctuations in the output signal measured by the oscilloscope and resistance in the wires of the circuit would also have contributed to the error. However, these would have been relatively small and the measured result was already found to agree with the simulated result to an acceptable degree.
+
+In the regulated version of the circuit, the output voltage was limited to $12.1\mathrm{V}$ with a negligible ripple of $20\mathrm{mV}$. Thus, the target ($12\mathrm{V}$ DC output with 10\% tolerance) was successfully achieved. Although the predicted output was $12\mathrm{V}$, the difference of $0.1\mathrm{V}$ was caused by the voltage output tolerance of the 78L12 regulator, which, according to the datasheet \citetext{Texas Instruments} can vary from $11.5\mathrm{V}$ to $12.5\mathrm{V}$ depending on the input voltage and current.
+
 \section{Conclusion}
 \label{sec:con}
-\bibliography{electronics}
+\bibliography{report}
 \end{document}
