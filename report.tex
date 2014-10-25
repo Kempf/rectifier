@@ -114,13 +114,13 @@ V_{r}=\frac{V_{DC}}{2f RC}
 \end{align}
 \begin{figure}[h!]
 \centering
-\begin{subfigure}[b]{0.7\textwidth}
+\begin{subfigure}[b]{0.65\textwidth}
 \includegraphics[width=\textwidth]{out_norm}
 \caption{Normal rectifier with a capacitor.}
 \label{fig:norm}
 \end{subfigure}
 \qquad
-\begin{subfigure}[b]{0.7\textwidth}
+\begin{subfigure}[b]{0.65\textwidth}
 \includegraphics[width=\textwidth]{out_res}
 \caption{Rectifier with two parallel load resistors.}
 \label{fig:res}
@@ -138,13 +138,13 @@ In the open circuit scenario, the circuit functioned as a half wave rectifier th
 If the same simulations are applied to the other diodes, a faulty D1 has the same effect as D4. D3 and D2 however block the positive cycle when acting as an open circuit and the negative cycle when acting as a short circuit.
 \begin{figure}[h!]
 \centering
-\begin{subfigure}[b]{0.7\textwidth}
+\begin{subfigure}[b]{0.65\textwidth}
 \includegraphics[width=\textwidth]{out_pos}
 \caption{Positive half-cycle only.}
 \label{fig:pos}
 \end{subfigure}
 \qquad
-\begin{subfigure}[b]{0.7\textwidth}
+\begin{subfigure}[b]{0.65\textwidth}
 \includegraphics[width=\textwidth]{out_neg}
 \caption{Negative half-cycle only.}
 \label{fig:neg}
@@ -218,7 +218,7 @@ V(t)=V_0e^{-\frac{t}{RC}}
 \label{eq:nat}
 \end{align}
 
-The propagated uncertainty was found to be $0.156\mathrm{V}$. The difference between the measured and mean simulated ripple value was $0.068\mathrm{V}$, with an uncertainty of $0.0156\mathrm{V}$---the uncertainty in the simulated values was small and consequently did not change the error significantly. Therefore, the measured ripple voltage was within $0.44$ of the mean simulated ripple voltage. Thus the measured value agreed with the simulated value to a considerable degree considering the high uncertainty.
+The propagated uncertainty was found to be $0.156\mathrm{V}$. The difference between the measured and mean simulated ripple value was $0.068\mathrm{V}$, with an uncertainty of $0.0156\mathrm{V}$---the uncertainty in the simulated values was small and consequently did not change the error significantly. Therefore, the measured ripple voltage was within $0.44\sigma$ of the mean simulated ripple voltage. Thus the measured value agreed with the simulated value to a considerable degree considering the high uncertainty.
  
 Other sources of error such as fluctuations in the output signal measured by the oscilloscope and resistance in the wires of the circuit would also have contributed to the error. However, these would have been relatively small and the measured result was already found to agree with the simulated result to an acceptable degree.
 
